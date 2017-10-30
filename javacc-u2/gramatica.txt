@@ -1,3 +1,6 @@
-<Programa> ::= comandoUnico
-<Comando> ::= comandoUnico (;comandoUnico)*
-<comandoUnico> ::= Identificador (:= Expressao | (Expressao))
+Programa ::= Comando
+Comando ::= ComandoUnico | ConjuntoComandos
+ComandoUnico ::= 'program' Identificador | Expressao
+
+
+http://www.bottlecaps.de/rr/ui
