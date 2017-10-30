@@ -1,6 +1,6 @@
-Programa ::= Comando
-Comando ::= ComandoUnico | ConjuntoComandos
-ComandoUnico ::= 'program' Identificador | Expressao
+Programa ::= 'program' (ComandoUnico | Bloco)
+ComandoUnico ::= Identificador | (Identificador)*
+Bloco ::= Constantes | Tipos | Variaveis | SubRotinas | ComandoComposto
 
 
 http://www.bottlecaps.de/rr/ui
