@@ -1,0 +1,3 @@
+<Programa> ::= comandoUnico
+<Comando> ::= comandoUnico (;comandoUnico)*
+<comandoUnico> ::= Identificador (:= Expressao | (Expressao))
