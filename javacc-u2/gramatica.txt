@@ -1,6 +1,84 @@
-Programa ::= 'program' (ComandoUnico | Bloco)
-ComandoUnico ::= Identificador | (Identificador)*
-Bloco ::= Constantes | Tipos | Variaveis | SubRotinas | ComandoComposto
+/*AnalisadorSintatico*/
+Programa ::= 'program' Identificador 'is' Bloco
+Bloco ::=  'code'
+	   DeclaracaoVariavel 
+           DeclaracaoComandos
+	   'endcode'
+
+DeclaracaoVariavel ::= Vazio
+   			|'var' Variavel';' 'endvar'
+  			| Identificador OperadorRelacional Identificador
+
+Variavel ::= Identificador | (Identificador ':' EstruturaDaVariavel '('Identificador')')* 
+EstruturaDaVariavel ::= VariavelSimples | VariavelArray
+VariavelSimples ::= Identificador TipoDado
+TipoIdentificador ::= Identificador
+TipoArray ::= 'array' '['IndiceDoArray']' 'of' TipoSimples
+IndiceDoArray ::= Inteiro '..' Inteiro
+
+/*Comandos*/
+DeclaracaoComandos ::= Comandos
+Comandos ::= 'begin' Comando 'end'
+Comando ::= (ComandoSimples | ComandoEstrututurado)
+
+CompandoSimples ::= (DeclaracaoAtribuicao | DeclaracaoProcedimento | DeclaracaoFuncao | ComandoRead |  ComandoWrite)
+
+DeclaracaoAtribuicao ::= Variavel ':=' Expressao	
+
+DeclaracaoProcedimento ::=  'code' CorpoProcedimento 'endcode' ';'
+CorpoProcedimento ::= 	'procedure' NomeProcedimento 'is' BlocoProcedimento 
+			| NomeProcedimento ArgumentosProcedimento BlocoProcedimento
+
+NomeProcedimento ::= Identificador'(ArgumentosProcedimento)' ';'
+ArgumentosDoProcedimento ::= VariaveisDaProcedimento
+			     | Indentificador 
+VariavelDaProcedimento ::= DeclaracaoVariavel
 
 
-http://www.bottlecaps.de/rr/ui
+
+DeclaracaoFuncao ::=  'code' CorpoDaFuncao 'endcode' ';'
+
+CorpoDaFuncao ::= 'function' NomeFuncao ParametrosFuncao BlocoFuncao 
+		     | NomeFuncao ParametrosFuncao BlocoFuncao
+
+NomeFuncao ::= Identificador'()' ';'
+ParametrosFuncao ::= VariaveisDaFuncao
+VariavelDaFuncao ::= DeclaracaoVariavel
+BlocoFuncao ::= 'return' VariavelDaFuncao';'
+
+ComandoRead ::= 'read' ValorEntrada
+ValorEntrada ::= Variavel
+
+ComandoWrite ::= 'write' ValorSaida
+ValorSaida ::= Variavel | Identificador
+
+ComandoEstruturado ::=  ComandoIf | ComandoWhile | ComandoLoop | ComandoCase
+ComandoIf ::= 'if' Expressao 'then' Comando 
+ComandoWhile ::= 'while' Expressao 'do' Comando
+
+Expressao ::=  ExpressaoSimples OperadorRelacional ExpressaoSimples
+ExpressaoSimples ::= (ValorNumero) (Termo OperadorRelacional Termo)
+Termo ::= Fator
+Fator ::= Variavel | Constantes | Expressao
+
+/*AnalisadorLexico*/
+
+Constantes ::=	InteiroConstante | IdentificadorConstante
+InteiroConstante ::= Numeros (Numero)
+Identificador ::= Letras | LetrasOuNumeros 
+ValorNumero ::= '+' |'-'  | Vazio
+
+LetrasOuNumeros ::= Letras | Numeros
+Letras ::= Letra*
+Letra ::= [a-z]
+Numeros ::= Inteiro | Real
+Inteiro ::= ValorNumero SequenciaDigitos
+SequenciaDigitos ::= Digito(Digito)*
+Digito ::= [0-9]
+Real ::= ValorNumero '.' SequenciaDigitos
+OperadorRelacional ::=  '>' 
+			| '<' 
+			| '>=' 
+			| '<=' 
+			| '<>' 
+			| '=' 
