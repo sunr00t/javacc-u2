@@ -1,0 +1,37 @@
+
+Programa ::= ComandoSimples
+Comando ::= ComandoSimples | Comando
+ComandoSimples ::= (Variavel |  Array | Record | ArrayDeRecord)+
+
+Variavel ::= DeclaracaoVariavel
+DeclaracaoVariavel ::= (NomeVariavel ':' ArgumentoDaVariavel) ';'
+NomeVariavel ::= Letras (LetrasOuNumeros)+
+ArgumentoDaVariavel ::= TipoVariavel | TipoDeDados
+TipoVariavel ::= Array | Record
+TipoDeDados ::= 'string' | 'intenger' | 'real'
+
+Array ::= DeclaracaoArray
+DeclaracaoArray ::= 'array' Inteiro '..' Inteiro 'of' TipoDeDados ';'
+
+Record ::= ComandoRecord
+ComandoRecord ::= 'record' NomeDoRecord 'is' ArgumentoDoRecord 'endrecord' ';'
+NomeDoRecord ::= Variavel
+ArgumentoDoRecord::= (Variavel ':' TipoDeDados)+
+
+DeclaracaoRecord ::= Variavel ':' 'record' Variavel (ArgumentoDaDeclaracaoRecord)?
+ArgumentoDaDeclaracaoRecord ::= '(' TipoDeDados
+ArrayDeRecord ::= DeclaracaoArrayDeRecord
+DeclaracaoArrayDeRecord ::= Variavel ':' 'record' NomeDoRecord
+
+
+
+/*AnalisadorLexico*/
+String ::= '"' LetrasOuNumeros'"'
+Identificador ::= LetrasOuNumeros
+LetrasOuNumeros ::= Letras | Numeros
+Letras ::= Letra+
+Letra ::= [a-z] | [A-Z]
+Numeros ::= Inteiro | Real
+Inteiro ::= Digito
+Real ::= (Digito)+'.'(Digito)+
+Digito ::= [0-9]+
