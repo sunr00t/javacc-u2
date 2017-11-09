@@ -1,33 +1,35 @@
+/*AnalisadorSintatico*/
 
-Programa ::= ComandoSimples
-Comando ::= ComandoSimples | Comando
-ComandoSimples ::= (Variavel |  Array | Record | ArrayDeRecord)+
+Programa ::= Comando
+Comando  ::= (Variavel |  Array | Record | ArrayDeRecord)+
 
+/*SintaticoVariavel*/
 Variavel ::= DeclaracaoVariavel
 DeclaracaoVariavel ::= (NomeVariavel ':' ArgumentoDaVariavel) ';'
-NomeVariavel ::= Letras (LetrasOuNumeros)+
+NomeVariavel ::= Letras (LetrasOuNumeros)*
 ArgumentoDaVariavel ::= TipoVariavel | TipoDeDados
-TipoVariavel ::= Array | Record
+TipoVariavel ::= Array | Record | ArrayDeRecord
 TipoDeDados ::= 'string' | 'intenger' | 'real'
 
+/*SintaticoArray*/
 Array ::= DeclaracaoArray
 DeclaracaoArray ::= 'array' Inteiro '..' Inteiro 'of' TipoDeDados ';'
 
+/*SintaticoRecord*/
 Record ::= ComandoRecord
 ComandoRecord ::= 'record' NomeDoRecord 'is' ArgumentoDoRecord 'endrecord' ';'
-NomeDoRecord ::= Variavel
-ArgumentoDoRecord::= (Variavel ':' TipoDeDados)+
-
+NomeDoRecord ::= Letras (LetrasOuNumeros)*
+ArgumentoDoRecord::= (Variavel ':' TipoDeDados)* ';'
 DeclaracaoRecord ::= Variavel ':' 'record' Variavel (ArgumentoDaDeclaracaoRecord)?
-ArgumentoDaDeclaracaoRecord ::= '(' TipoDeDados
+ArgumentoDaDeclaracaoRecord ::= '('Identificador+')' ';'
+
+/*SintaticoArrayDeRecord*/
 ArrayDeRecord ::= DeclaracaoArrayDeRecord
-DeclaracaoArrayDeRecord ::= Variavel ':' 'record' NomeDoRecord
-
-
+DeclaracaoArrayDeRecord ::= 'array' Inteiro '..' Inteiro 'of' 'record' Variavel ';'
 
 /*AnalisadorLexico*/
-String ::= '"' LetrasOuNumeros'"'
 Identificador ::= LetrasOuNumeros
+String ::= '"' LetrasOuNumeros '"'
 LetrasOuNumeros ::= Letras | Numeros
 Letras ::= Letra+
 Letra ::= [a-z] | [A-Z]
