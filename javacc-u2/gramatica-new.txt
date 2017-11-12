@@ -1,22 +1,21 @@
-Programa ::= Declaracoes+
+Programa ::= Declaracoes*
 Declaracoes  ::= (VariavelArray | Record | VariavelRecord | VariavelArrayDeRecord)
 
 VariavelArray ::= Identificador ':' 'array' Inteiro '..' Inteiro 'of' TipoDeDados ';'
 
-Record ::= 'record' Identificador 'is' ArgumentoDoRecord 'endrecord' ';'
+Record ::= 'record' Identificador 'is' ArgumentoDoRecord* 'endrecord' ';'
 ArgumentoDoRecord ::= Identificador ':' TipoDeDados ';'
 TipoDeDados ::= 'string' | 'integer' | 'real'
 
-VariavelRecord ::= (Identificador ':' 'record' Identificador) 
-				  | Identificador ':' 'record 'Identificador '(' (Identificador | Numeros)+ ')' ';'
+VariavelRecord ::= (Identificador ':' 'record' Identificador) ';'
+		  | Identificador ':' 'record 'Identificador '(' ((String | Inteiro | Real).',')* ')' ';'
 
 VariavelArrayDeRecord ::= 'array' Inteiro '..' Inteiro 'of' 'record' Identificador';'
 
-Identificador ::= Letras (LetrasOuNumeros)+
-LetrasOuNumeros ::= Letras | Numeros
-Letras ::= Letra+
+Identificador ::= Letra (Letra | Digito)*
+String  ::= '"'.*'"'
+Digitos ::= Digito+
+Inteiro ::= Digitos
+Real ::= Digitos'.'Digitos
 Letra ::= [a-z] | [A-Z]
-Numeros ::= Inteiro | Real
-Inteiro ::= Digito
-Real ::= (Digito)+'.'(Digito)+
-Digito ::= [0-9]+
+Digito ::= [0-9]

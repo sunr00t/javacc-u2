@@ -1,85 +1,0 @@
-options{  static = true;}PARSER_BEGIN(est)package est;
-
-public class est{  public static void main(String args []) throws ParseException  {    est parser = new est(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (est.one_line())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        est.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(est)SKIP :{  " "| "\r"| "\t"| "\n"}
-
-/* GERAÇÃO DA GRAMATICA = (V, T, P, S)
-   V = mneumonicos
-   T = Simbolos Terminais
-   P = Regra de Produção
-   S = Inicio      */  
-
-
-
-TOKEN: /* PALAVRAS RESERVADAS */
-{
-  < PROGRAM: "program" >
-| < IS: "is" >
-| < CODE: "code" >
-| < ENDCODE: "endcode" >
-| < IF: "if" >
-| < ENDIF: "endif" >
-| < ELSE: "else" >
-| < THEN: "then" >
-| < BEGIN: "begin" >
-| < END: "end" >
-
-}TOKEN : /* OPERAORES */{  < SOMA : "+" >| < SUBTRACAO : "-" >| < MULTIPLICACAO : "*" >| < DIVISAO : "/" >}TOKEN :{  < CONSTANTE : (< DIGITOS >)+ >| <#DIGITOS: ["0"-"9"]>
-| <LETRAS : ["a"-"z","A"-"Z"] >}
-
-TOKEN : {
- <IDENTIFICADOR: <LETRAS>(<LETRAS>|<DIGITOS>)*(["$"])?>
-|  <#LETTER: (["a"-"z","A"-"Z"])>
-}
-
-int one_line() :
-{}
-{
-  soma() ";"
-  {
-    return 0;
-  }
-| ";"
-  {
-    return 1;
-  }
-}
-
-void soma() :
-{}
-{
-  termo()
-  (
-    (
-      < SOMA >
-    | < SUBTRACAO >
-    )
-    termo()
-  )*
-}
-
-void termo() :
-{}
-{
-  unario()
-  (
-    (
-      < MULTIPLICACAO >
-    | < DIVISAO >
-    )
-    unario()
-  )*
-}
-
-void unario() :
-{}
-{
-  < SUBTRACAO > elemento()
-| elemento()
-}
-
-void elemento() :
-{}
-{
-  < CONSTANTE >
-| "(" soma() ")"
-}
