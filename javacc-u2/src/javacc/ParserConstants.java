@@ -11,53 +11,51 @@ public interface ParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 5;
+  int TSTRING = 5;
   /** RegularExpression Id. */
-  int STRING = 6;
+  int TINTEIRO = 6;
   /** RegularExpression Id. */
-  int INTEIRO = 7;
+  int TREAL = 7;
   /** RegularExpression Id. */
-  int REAL = 8;
+  int ARRAY = 8;
   /** RegularExpression Id. */
-  int TIPODEDADOS = 9;
+  int RECORD = 9;
   /** RegularExpression Id. */
-  int TSTRING = 10;
+  int IS = 10;
   /** RegularExpression Id. */
-  int TINTEIRO = 11;
+  int ENDRECORD = 11;
   /** RegularExpression Id. */
-  int TREAL = 12;
+  int OF = 12;
   /** RegularExpression Id. */
-  int ARRAY = 13;
+  int OFRECORD = 13;
   /** RegularExpression Id. */
-  int RECORD = 14;
+  int IDENTIFICADOR = 14;
   /** RegularExpression Id. */
-  int IS = 15;
+  int STRING = 15;
   /** RegularExpression Id. */
-  int ENDRECORD = 16;
+  int INTEIRO = 16;
   /** RegularExpression Id. */
-  int OF = 17;
+  int REAL = 17;
   /** RegularExpression Id. */
-  int OFRECORD = 18;
+  int LETRA = 18;
   /** RegularExpression Id. */
-  int LETRA = 19;
+  int DIGITO = 19;
   /** RegularExpression Id. */
-  int DIGITO = 20;
+  int DOISPONTOS = 20;
   /** RegularExpression Id. */
-  int DOISPONTOS = 21;
+  int PONTOEVIRGULA = 21;
   /** RegularExpression Id. */
-  int PONTOVIRGULA = 22;
+  int INTERVALO = 22;
   /** RegularExpression Id. */
-  int INTERVALO = 23;
+  int VIRGULA = 23;
   /** RegularExpression Id. */
-  int VIRGULA = 24;
+  int PARENTESQ = 24;
   /** RegularExpression Id. */
-  int PARENTESQ = 25;
+  int PARENTEDIR = 25;
   /** RegularExpression Id. */
-  int PARENTEDIR = 26;
+  int ASPAS = 26;
   /** RegularExpression Id. */
-  int ASPAS = 27;
-  /** RegularExpression Id. */
-  int PONTO = 28;
+  int PONTO = 27;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -69,11 +67,6 @@ public interface ParserConstants {
     "\"\\n\"",
     "\"\\r\"",
     "\"\\r\\n\"",
-    "<IDENTIFICADOR>",
-    "<STRING>",
-    "<INTEIRO>",
-    "<REAL>",
-    "<TIPODEDADOS>",
     "\"string\"",
     "\"integer\"",
     "\"real\"",
@@ -83,6 +76,10 @@ public interface ParserConstants {
     "\"endrecord\"",
     "\"of\"",
     "\"of record\"",
+    "<IDENTIFICADOR>",
+    "<STRING>",
+    "<INTEIRO>",
+    "<REAL>",
     "<LETRA>",
     "<DIGITO>",
     "\":\"",
