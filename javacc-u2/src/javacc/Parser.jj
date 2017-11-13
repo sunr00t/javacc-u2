@@ -59,10 +59,66 @@ SKIP :
 | "\n"
 | "\r"
 | "\r\n"
+
 }
+
+//TIPOS DE DADOS
+
+TOKEN : { < IDENTIFICADOR : < LETRA > (< LETRA > | < DIGITO >)* > }
+TOKEN : { < STRING : < ASPAS >(< PONTO >)*< ASPAS > > }
+TOKEN : { < INTEIRO : (< DIGITO >)+ > } 
+TOKEN : { < REAL : <INTEIRO >(< PONTO > < INTEIRO >)? > }
+TOKEN : { < TIPODEDADOS: < TSTRING > | < TINTEIRO > | < TREAL > >  }
+
+//PALAVRAS RESERVADAS
+
+TOKEN : { < TSTRING : "string" > }
+TOKEN : { < TINTEIRO : "integer" > }
+TOKEN : { < TREAL : "real" > }
+TOKEN : { < ARRAY : "array" > }
+TOKEN : { < RECORD : "record" > }
+TOKEN : { < IS : "is" > }
+TOKEN : { < ENDRECORD : "endrecord" >}
+TOKEN : { < OF : "of" > }
+TOKEN : { < OFRECORD : "of record" > }
+
+// CARACTERES
+TOKEN : { < #LETRA : ["a"-"z","A"-"Z"] > }
+TOKEN : { < #DIGITO : ["0"-"9"] > }
+
+// SIMBOLOS
+TOKEN : { < DOISPONTOS : ":" > }
+TOKEN : { < PONTOVIRGULA : ";" > }
+TOKEN : { < INTERVALO : ".." > }
+TOKEN : { < VIRGULA : "," > }
+TOKEN : { < PARENTESQ : "(" > }
+TOKEN : { < PARENTEDIR : ")" > }
+TOKEN : { < ASPAS : "\"" > }
+TOKEN : { < PONTO : "." > }
+
 
 void Start() :
 {}
 {
+  Declaracoes()
   < EOF >
+}
+
+void Declaracoes() :
+{}
+{
+ Record()
+}
+
+void Record() :
+{}
+{
+(< RECORD > < IDENTIFICADOR > <IS > ArgumentoDoRecord() < ENDRECORD > <PONTOVIRGULA >)*
+
+}
+
+void ArgumentoDoRecord() :
+{}
+{
+  < IDENTIFICADOR > <DOISPONTOS > < TIPODEDADOS >
 }

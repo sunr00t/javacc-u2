@@ -1,5 +1,5 @@
-Programa ::= Declaracoes*
-Declaracoes  ::= (VariavelArray | Record | VariavelRecord | VariavelArrayDeRecord)
+Programa ::= Declaracoes
+Declaracoes  ::= VariavelArray*  Record* VariavelRecord* VariavelArrayDeRecord*
 
 VariavelArray ::= Identificador ':' 'array' Inteiro '..' Inteiro 'of' TipoDeDados ';'
 
@@ -10,12 +10,11 @@ TipoDeDados ::= 'string' | 'integer' | 'real'
 VariavelRecord ::= (Identificador ':' 'record' Identificador) ';'
 		  | Identificador ':' 'record 'Identificador '(' ((String | Inteiro | Real).',')* ')' ';'
 
-VariavelArrayDeRecord ::= 'array' Inteiro '..' Inteiro 'of' 'record' Identificador';'
+VariavelArrayDeRecord ::= 'array' Inteiro '..' Inteiro 'of record' Identificador';'
 
 Identificador ::= Letra (Letra | Digito)*
 String  ::= '"'.*'"'
-Digitos ::= Digito+
-Inteiro ::= Digitos
-Real ::= Digitos'.'Digitos
+Inteiro ::= Digito+
+Real ::= Inteiro('.'Inteiro)?
 Letra ::= [a-z] | [A-Z]
 Digito ::= [0-9]
