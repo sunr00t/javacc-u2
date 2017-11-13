@@ -3,7 +3,7 @@ Declaracoes  ::= VariavelArray*  Record* VariavelRecord* VariavelArrayDeRecord*
 
 VariavelArray ::= Identificador ':' 'array' Inteiro '..' Inteiro 'of' TipoDeDados ';'
 
-Record ::= 'record' Identificador 'is' ArgumentoDoRecord* 'endrecord' ';'
+Record ::= 'record' (Identificador 'is' ArgumentoDoRecord)* 'endrecord' ';'
 ArgumentoDoRecord ::= Identificador ':' TipoDeDados ';'
 TipoDeDados ::= 'string' | 'integer' | 'real'
 
