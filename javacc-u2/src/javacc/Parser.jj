@@ -76,15 +76,15 @@ TOKEN : { < OFRECORD : "of record" > }
 
 //TIPOS DE DADOS
 
-TOKEN : { < STRING : "\"" (~["\"","\n","\r"])* "\"" > }
+TOKEN : { < STRING : "\"" (~["\n","\r"])* "\"" > }
 TOKEN : { < INTEIRO : (< DIGITO >)+ > } 
 TOKEN : { < REAL : <INTEIRO >(< PONTO > < INTEIRO >)? > }
 TOKEN : { < IDENTIFICADOR : < LETRA > (< LETRA > | < DIGITO >)* > }
 
 
 // CARACTERES
-TOKEN : { < #LETRA : ["a"-"z","A"-"Z"] > }
-TOKEN : { < #DIGITO : ["0"-"9"] > }
+TOKEN : { < LETRA : ["a"-"z","A"-"Z"] > }
+TOKEN : { < DIGITO : ["0"-"9"] > }
 
 
 // SIMBOLOS
@@ -113,7 +113,8 @@ void Declaracoes() :
 void Record() :
 {}
 {
-  < RECORD > <IDENTIFICADOR > <IS > (Variavel())* < ENDRECORD > <PONTOEVIRGULA >
+	< RECORD > <IDENTIFICADOR >(( < IS > (Variavel() )+ < ENDRECORD > < PONTOEVIRGULA > )
+							| ( < PARENTEESQ >((< STRING > | < INTEIRO > | < REAL >) (< VIRGULA >)? )+ < PARENTEDIR > )? ) 
 }
 
 void Variavel() :
@@ -135,15 +136,8 @@ void VArray():
 }
 
 
-void VRecord() :
-{}
-{
-	< RECORD > <IDENTIFICADOR >  < PARENTEESQ > < VIRGULA > < PARENTEDIR >
-}
-
-
 void Tipo() :
 {}
 {
-< TSTRING > | < TINTEIRO > | < TREAL >
+	< TSTRING > | < TINTEIRO > | < TREAL >
 }
