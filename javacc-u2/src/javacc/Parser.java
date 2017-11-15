@@ -46,26 +46,14 @@ public class Parser implements ParserConstants {
 
   final public void Start() throws ParseException {
     Declaracoes();
-  }
-
-  final public void Declaracoes() throws ParseException {
-    Record();
     jj_consume_token(0);
   }
 
-  final public void Record() throws ParseException {
-    jj_consume_token(RECORD);
-    jj_consume_token(IDENTIFICADOR);
-    jj_consume_token(IS);
-    ArgumentoDoRecord();
-    jj_consume_token(ENDRECORD);
-    jj_consume_token(PONTOEVIRGULA);
-  }
-
-  final public void ArgumentoDoRecord() throws ParseException {
+  final public void Declaracoes() throws ParseException {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case RECORD:
       case IDENTIFICADOR:
         ;
         break;
@@ -73,14 +61,98 @@ public class Parser implements ParserConstants {
         jj_la1[0] = jj_gen;
         break label_1;
       }
-      jj_consume_token(IDENTIFICADOR);
-      jj_consume_token(DOISPONTOS);
-      TipoDeDados();
-      jj_consume_token(PONTOEVIRGULA);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IDENTIFICADOR:
+        Variavel();
+        break;
+      case RECORD:
+        Record();
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
     }
   }
 
-  final public void TipoDeDados() throws ParseException {
+  final public void Record() throws ParseException {
+    jj_consume_token(RECORD);
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(IS);
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IDENTIFICADOR:
+        ;
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        break label_2;
+      }
+      Variavel();
+    }
+    jj_consume_token(ENDRECORD);
+    jj_consume_token(PONTOEVIRGULA);
+  }
+
+  final public void Variavel() throws ParseException {
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(DOISPONTOS);
+    TArg();
+    jj_consume_token(PONTOEVIRGULA);
+  }
+
+  final public void TArg() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case ARRAY:
+      VArray();
+      break;
+    case RECORD:
+      Record();
+      break;
+    case TSTRING:
+    case TINTEIRO:
+    case TREAL:
+      Tipo();
+      break;
+    default:
+      jj_la1[3] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void VArray() throws ParseException {
+    jj_consume_token(ARRAY);
+    jj_consume_token(INTEIRO);
+    jj_consume_token(INTERVALO);
+    jj_consume_token(INTEIRO);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case OF:
+      jj_consume_token(OF);
+      Tipo();
+      break;
+    case OFRECORD:
+      jj_consume_token(OFRECORD);
+      jj_consume_token(IDENTIFICADOR);
+      break;
+    default:
+      jj_la1[4] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  final public void VRecord() throws ParseException {
+    jj_consume_token(RECORD);
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(PARENTEESQ);
+    jj_consume_token(VIRGULA);
+    jj_consume_token(PARENTEDIR);
+  }
+
+  final public void Tipo() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case TSTRING:
       jj_consume_token(TSTRING);
@@ -92,7 +164,7 @@ public class Parser implements ParserConstants {
       jj_consume_token(TREAL);
       break;
     default:
-      jj_la1[1] = jj_gen;
+      jj_la1[5] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -107,13 +179,13 @@ public class Parser implements ParserConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[2];
+  final private int[] jj_la1 = new int[6];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x4000,0xe0,};
+      jj_la1_0 = new int[] {0x20200,0x20200,0x20000,0x3e0,0x3000,0xe0,};
    }
 
   /** Constructor with InputStream. */
@@ -127,7 +199,7 @@ public class Parser implements ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -141,7 +213,7 @@ public class Parser implements ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -151,7 +223,7 @@ public class Parser implements ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -161,7 +233,7 @@ public class Parser implements ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -170,7 +242,7 @@ public class Parser implements ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -179,7 +251,7 @@ public class Parser implements ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -230,12 +302,12 @@ public class Parser implements ParserConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[28];
+    boolean[] la1tokens = new boolean[27];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 6; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -244,7 +316,7 @@ public class Parser implements ParserConstants {
         }
       }
     }
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < 27; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
