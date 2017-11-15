@@ -74,58 +74,75 @@ TOKEN : { < ENDRECORD : "endrecord" >}
 TOKEN : { < OF : "of" > }
 TOKEN : { < OFRECORD : "of record" > }
 
-
 //TIPOS DE DADOS
-TOKEN : { < IDENTIFICADOR : < LETRA > (< LETRA > | < DIGITO >)* > }
-TOKEN : { < STRING : < ASPAS >(< PONTO >)*< ASPAS > > }
+
+TOKEN : { < STRING : "\"" (~["\"","\n","\r"])* "\"" > }
 TOKEN : { < INTEIRO : (< DIGITO >)+ > } 
 TOKEN : { < REAL : <INTEIRO >(< PONTO > < INTEIRO >)? > }
-
-
+TOKEN : { < IDENTIFICADOR : < LETRA > (< LETRA > | < DIGITO >)* > }
 
 
 // CARACTERES
 TOKEN : { < #LETRA : ["a"-"z","A"-"Z"] > }
 TOKEN : { < #DIGITO : ["0"-"9"] > }
 
+
 // SIMBOLOS
 TOKEN : { < DOISPONTOS : ":" > }
 TOKEN : { < PONTOEVIRGULA : ";" > }
 TOKEN : { < INTERVALO : ".." > }
 TOKEN : { < VIRGULA : "," > }
-TOKEN : { < PARENTESQ : "(" > }
+TOKEN : { < PARENTEESQ : "(" > }
 TOKEN : { < PARENTEDIR : ")" > }
-TOKEN : { < ASPAS : "\"" > }
 TOKEN : { < PONTO : "." > }
 
 
 void Start() :
 {}
 {
-  Declaracoes()
+Declaracoes()
+< EOF >
 }
 
 void Declaracoes() :
 {}
 {
- Record()
- < EOF >
+    (Variavel() | Record())* 
 }
 
 void Record() :
 {}
 {
-< RECORD > < IDENTIFICADOR > <IS > ArgumentoDoRecord() < ENDRECORD > < PONTOEVIRGULA >
-
+  < RECORD > <IDENTIFICADOR > <IS > (Variavel())* < ENDRECORD > <PONTOEVIRGULA >
 }
 
-void ArgumentoDoRecord() :
+void Variavel() :
+{}
+{   < IDENTIFICADOR > < DOISPONTOS > TArg() < PONTOEVIRGULA >
+}
+
+void TArg() :
 {}
 {
-  (< IDENTIFICADOR > <DOISPONTOS > TipoDeDados() < PONTOEVIRGULA >)*
+ VArray() | Record() | Tipo()
 }
 
-void TipoDeDados() :
+void VArray():
+{}
+{
+	<ARRAY > <INTEIRO > <INTERVALO > <INTEIRO > ((< OF > Tipo())
+	| (< OFRECORD > <IDENTIFICADOR>))
+}
+
+
+void VRecord() :
+{}
+{
+	< RECORD > <IDENTIFICADOR >  < PARENTEESQ > < VIRGULA > < PARENTEDIR >
+}
+
+
+void Tipo() :
 {}
 {
 < TSTRING > | < TINTEIRO > | < TREAL >

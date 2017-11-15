@@ -29,13 +29,13 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int OFRECORD = 13;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 14;
+  int STRING = 14;
   /** RegularExpression Id. */
-  int STRING = 15;
+  int INTEIRO = 15;
   /** RegularExpression Id. */
-  int INTEIRO = 16;
+  int REAL = 16;
   /** RegularExpression Id. */
-  int REAL = 17;
+  int IDENTIFICADOR = 17;
   /** RegularExpression Id. */
   int LETRA = 18;
   /** RegularExpression Id. */
@@ -49,13 +49,11 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int VIRGULA = 23;
   /** RegularExpression Id. */
-  int PARENTESQ = 24;
+  int PARENTEESQ = 24;
   /** RegularExpression Id. */
   int PARENTEDIR = 25;
   /** RegularExpression Id. */
-  int ASPAS = 26;
-  /** RegularExpression Id. */
-  int PONTO = 27;
+  int PONTO = 26;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -76,10 +74,10 @@ public interface ParserConstants {
     "\"endrecord\"",
     "\"of\"",
     "\"of record\"",
-    "<IDENTIFICADOR>",
     "<STRING>",
     "<INTEIRO>",
     "<REAL>",
+    "<IDENTIFICADOR>",
     "<LETRA>",
     "<DIGITO>",
     "\":\"",
@@ -88,7 +86,6 @@ public interface ParserConstants {
     "\",\"",
     "\"(\"",
     "\")\"",
-    "\"\\\"\"",
     "\".\"",
   };
 
