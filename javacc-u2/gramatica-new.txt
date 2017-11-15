@@ -1,19 +1,17 @@
 Programa ::= Declaracoes
-Declaracoes  ::= VariavelArray*  Record* VariavelRecord* VariavelArrayDeRecord*
+Declaracoes ::= (Variavel | Record)*
+Record ::=  'record' Identificador 'is' (Variavel)+ 'endrecord' ';'
 
-VariavelArray ::= Identificador ':' 'array' Inteiro '..' Inteiro 'of' TipoDeDados ';'
+Variavel ::= Identificador ':' TArg ';'
+TArg ::= (VArray | VRecord | Tipo)
 
-Record ::= 'record' (Identificador 'is' ArgumentoDoRecord)* 'endrecord' ';'
-ArgumentoDoRecord ::= Identificador ':' TipoDeDados ';'
-TipoDeDados ::= 'string' | 'integer' | 'real'
+VArray ::= 'array' Inteiro '..' Inteiro (('of' Tipo) | ('of record' Identificador))
+VRecord ::= 'record' Identificador ('('((String | Inteiro | Real)',')+ ')')?
 
-VariavelRecord ::= (Identificador ':' 'record' Identificador) ';'
-		  | Identificador ':' 'record 'Identificador '(' ((String | Inteiro | Real).',')* ')' ';'
-
-VariavelArrayDeRecord ::= 'array' Inteiro '..' Inteiro 'of record' Identificador';'
+Tipo ::= 'string' | 'integer' | 'real'
 
 Identificador ::= Letra (Letra | Digito)*
-String  ::= '"'.*'"'
+String  ::= "\"" (~["\"","\n","\r"])* "\"" >
 Inteiro ::= Digito+
 Real ::= Inteiro('.'Inteiro)?
 Letra ::= [a-z] | [A-Z]
