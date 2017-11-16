@@ -4,7 +4,7 @@ Utilizar a ferramenta JavaCC para criação de um Analisador Léxico e Sintátic
 
 Segue abaixo o código proposto usado como base para construção desta gramática:
 <br><br>
-v1< : array 1..10 of real;<br>
+v1 : array 1..10 of real;<br>
 v2 : array 1..20 of integer;<br>
 record aluno is<br>
 nome : string;<br>
