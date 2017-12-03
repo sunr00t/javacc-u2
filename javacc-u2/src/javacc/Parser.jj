@@ -119,7 +119,8 @@ void Record() :
 
 void Variavel() :
 {}
-{   < IDENTIFICADOR > < DOISPONTOS > TArg() < PONTOEVIRGULA >
+{
+   < IDENTIFICADOR > < DOISPONTOS > TArg() < PONTOEVIRGULA >
 }
 
 void TArg() :
