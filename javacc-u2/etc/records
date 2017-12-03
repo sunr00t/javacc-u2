@@ -1,0 +1,12 @@
+v1 : array 1..10 of real;
+v2 : array 1..20 of integer;
+
+record aluno is
+nome : string;
+serie : integer;
+media : real;
+endrecord;
+
+a1 : record aluno;
+a2 : record aluno ("zezinho", 1, 10.0);
+v3 : array 1..100 of record aluno;
